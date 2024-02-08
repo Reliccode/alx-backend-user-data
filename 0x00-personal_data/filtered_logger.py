@@ -3,6 +3,7 @@
 """
 import logging
 import mysql.connector
+import os
 from os import environ
 import re
 from typing import List
@@ -64,15 +65,19 @@ def get_logger() -> logging.Logger:
 def get_db() -> mysql.connector.connection.MySQLConnection:
     """ Get database connection
     """
-    host = environ.get('PERSONAL_DATA_DB_HOST')
-    user = environ.get('PERSONAL_DATA_DB_USERNAME')
-    password = environ.get('PERSONAL_DATA_DB_PASSWORD')
-    db = environ.get('PERSONAL_DATA_DB_NAME')
+    username = os.getenv("PERSONAL_DATA_DB_USERNAME", "root")
+    password = os.getenv("PERSONAL_DATA_DB_PASSWORD", "")
+    host = os.getenv("PERSONAL_DATA_DB_HOST", "localhost")
+    db_name = os.getenv("PERSONAL_DATA_DB_NAME")
 
-    cur = mysql.connector.connection.MySQLConnection(
-        host=host, user=user, password=password, database=db)
+    db = mysql.connector.connection.MySQLConnection(
+        host=host,
+        user=username,
+        password=password,
+        database=db_name
+    )
 
-    return cur
+    return db
 
 
 def main():
