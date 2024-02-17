@@ -2,7 +2,6 @@
 """ Module of Authentication
 """
 from flask import request
-from models.user import User
 from typing import List, TypeVar
 
 
@@ -45,15 +44,6 @@ class Auth:
 
         return request.headers.get("Authorization", None)
 
-    def current_user(self, request=None) -> User:
+    def current_user(self, request=None) -> TypeVar('User'):
         """ Validates current user """
-        if request is not None:
-            mock_user_data = {
-                'id': 1,
-                'email': 'user@example.com',
-                'first_name': 'John',
-                'last_name': 'Doe'
-            }
-            return User(**mock_user_data)
-        else:
-            return None
+        return None
