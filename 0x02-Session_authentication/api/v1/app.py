@@ -3,6 +3,7 @@
 Route module for the API
 """
 from api.v1.views import app_views
+from models.user import User
 from os import getenv
 from api.v1.views.users import view_all_users, view_one_user
 from api.v1.views.index import status, stats, unauthorized, forbidden

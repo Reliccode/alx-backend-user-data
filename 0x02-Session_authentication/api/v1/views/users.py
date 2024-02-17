@@ -13,7 +13,7 @@ def view_all_users() -> str:
       - list of all User objects JSON represented
     """
     from api.v1.views import app_views  # moved import here 17/2/24
-    all_users = [user.to_json() for user in User.all()]
+    all_users = [user.to_dict() for user in User.all()]
     return jsonify(all_users)
 
 
@@ -34,12 +34,12 @@ def view_one_user(user_id: str = None) -> str:
     if user_id == 'me':  # handle new endpoint
         if not request.current_user:
             abort(404)
-        return jsonify(request.current_user.to_json())
+        return jsonify(request.current_user.to_dict())
 
     user = User.get(user_id)
     if user is None:
         abort(404)
-    return jsonify(user.to_json())
+    return jsonify(user.to_dict())
 
 
 @app_views.route('/users/<user_id>', methods=['DELETE'], strict_slashes=False)
@@ -92,7 +92,7 @@ def create_user() -> str:
             user.first_name = rj.get("first_name")
             user.last_name = rj.get("last_name")
             user.save()
-            return jsonify(user.to_json()), 201
+            return jsonify(user=user.to_dict()), 201
         except Exception as e:
             error_msg = "Can't create User: {}".format(e)
     return jsonify({'error': error_msg}), 400
@@ -128,4 +128,4 @@ def update_user(user_id: str = None) -> str:
     if rj.get('last_name') is not None:
         user.last_name = rj.get('last_name')
     user.save()
-    return jsonify(user.to_json()), 200
+    return jsonify(user=user.to_dict()), 200
