@@ -12,7 +12,7 @@ def view_all_users() -> str:
     Return:
       - list of all User objects JSON represented
     """
-    from api.v1.views import app_views  # moved import here 17/2/24
+    from api.v1.views import app_views # moved import here 17/2/24
     all_users = [user.to_json() for user in User.all()]
     return jsonify(all_users)
 
@@ -26,7 +26,7 @@ def view_one_user(user_id: str = None) -> str:
       - User object JSON represented
       - 404 if the User ID doesn't exist
     """
-    from api.v1.views import app_views  # moved import here 17/2/24
+    from api.v1.views import app_views # moved import here 17/2/24
 
     if user_id is None:
         abort(404)
