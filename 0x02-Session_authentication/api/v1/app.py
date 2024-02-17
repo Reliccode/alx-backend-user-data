@@ -2,6 +2,7 @@
 """
 Route module for the API
 """
+from api.v1.views import app_views
 from os import getenv
 from api.v1.views.users import view_all_users, view_one_user
 from api.v1.views.index import status, stats, unauthorized, forbidden
@@ -12,7 +13,6 @@ import os
 
 app = Flask(__name__)
 
-from api.v1.views import app_views
 app.register_blueprint(app_views)
 
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
