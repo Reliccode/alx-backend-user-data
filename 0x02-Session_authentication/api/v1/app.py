@@ -67,6 +67,9 @@ def before_request() -> str:
     if auth.authorization_header(request) is None:
         abort(401)
 
+    if not auth.authenticate(request):
+        abort(401)
+
     request.current_user = auth.current_user(request)
 
     if request.path == '/api/v1/users/me':  # handle new endpoint
