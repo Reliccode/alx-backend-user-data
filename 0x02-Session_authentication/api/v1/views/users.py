@@ -26,19 +26,19 @@ def view_one_user(user_id: str = None) -> str:
       - User object JSON represented
       - 404 if the User ID doesn't exist
     """
-    from api.v1.views import app_views  # moved import here 17/2/24
-
+    
     if user_id is None:
         abort(404)
 
     if user_id == 'me':  # handle new endpoint
-        if not request.current_user:
+        if request.current_user is None:
             abort(404)
-        return jsonify(request.current_user.to_json())
+        return jsonify(request.current_user.to_dict())
 
     user = User.get(user_id)
     if user is None:
         abort(404)
+
     return jsonify(user.to_json())
 
 
