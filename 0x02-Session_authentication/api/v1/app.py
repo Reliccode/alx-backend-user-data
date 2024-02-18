@@ -69,12 +69,15 @@ def before_request() -> str:
 
     if not auth.authenticate(request):
         abort(401)
+        
+    set_current_user(request)
 
+def set_current_user(request):
+    """Set the current user in the request object"""
     request.current_user = auth.current_user(request)
 
-    if request.path == '/api/v1/users/me':  # handle new endpoint
-        if request.current_user is None:
-            abort(404)
+    if request.path == '/api/v1/users/me' and request.current_user is None:
+        abort(404)
 
 
 if __name__ == "__main__":
