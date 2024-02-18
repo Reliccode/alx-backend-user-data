@@ -70,7 +70,7 @@ def before_request() -> str:
     if request.path == '/api/v1/users/me':  # handle new endpoint
         current_user = auth.current_user(request)
         if current_user is None:
-            abort(404)
+            abort(401, description="User doesn't exist")
         return jsonify(current_user.to_dict())
 
     if auth.current_user(request) is None:
