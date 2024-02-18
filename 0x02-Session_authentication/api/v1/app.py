@@ -67,14 +67,11 @@ def before_request() -> str:
     if auth.authorization_header(request) is None:
         abort(401)
 
-    if request.path == '/api/v1/users/me':  # handle new endpoint
-        current_user = auth.current_user(request)
-        if current_user is None:
-            return '', 200
-        return jsonify(current_user.to_dict())
+    request.current_user = auth.current_user(request)
 
-    if auth.current_user(request) is None:
-        abort(403)
+    if request.path == '/api/v1/users/me':  # handle new endpoint
+        if request.current_user is None:
+            abort(404)
 
 
 if __name__ == "__main__":
