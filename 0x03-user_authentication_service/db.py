@@ -58,15 +58,15 @@ class DB:
         using keywords to find user in db
         """
         try:
-            #start new SELECT query targeting User model
-            #Apply filtering according to keywords provided
+            # start new SELECT query targeting User model
+            # Apply filtering according to keywords provided
             user = self._session.query(User).filter_by(**kwargs).first()
-            #if user is not found, raise NoResultFound
+            # if user is not found, raise NoResultFound
             if user is None:
                 raise NoResultFound
 
-            #return the user object found
+            # return the user object found
             return user
         except InvalidRequestError as e:
-            #if there are issues with query, raise InvalidResquestError
+            # if there are issues with query, raise InvalidResquestError
             raise e
