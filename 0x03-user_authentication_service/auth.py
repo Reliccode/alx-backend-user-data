@@ -75,4 +75,4 @@ class Auth:
 
     def _generate_uuid() -> str:
         """Generates new UUID and returns its string representation"""
-        return str(uuid.uuid1())
+        return (uuid.uuid4())
