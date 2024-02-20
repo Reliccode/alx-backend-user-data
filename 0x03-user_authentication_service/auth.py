@@ -77,4 +77,4 @@ class Auth:
         """Generates new UUID and returns its string representation"""
         # make random UUID
         random_uuid = uuid.uuid4()
-        return str(random_uuid)
+        return (random_uuid)
