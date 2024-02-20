@@ -5,13 +5,13 @@ add_user method
 
 
 from sqlalchemy import create_engine
-#from sqlalchemy.ext.declarative import declarative_base
+# from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 from sqlalchemy.exc import IntegrityError
 from user import Base, User
 
-#Base = declarative_base()
+# Base = declarative_base()
 
 
 class DB:
