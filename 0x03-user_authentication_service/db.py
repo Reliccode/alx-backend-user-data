@@ -9,6 +9,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 # from sqlalchemy.exc import IntegrityError
+from sqlalchemy.exc import InvalidRequestError
+from sqlalchemy.orm.exc import NoResultFound
 from user import Base, User
 
 # Base = declarative_base()
@@ -50,3 +52,21 @@ class DB:
         self._session.rollback()
         # raise ValueError("User already exists") from err
         return user
+
+    def find_user_by(self, **kwargs) -> User:
+        """
+        using keywords to find user in db
+        """
+        try:
+            #start new SELECT query targeting User model
+            #Apply filtering according to keywords provided
+            user = self._session.query(User).filter_by(**kwargs).first()
+            #if user is not found, raise NoResultFound
+            if user is None:
+                raise NoResultFound
+
+            #return the user object found
+            return user
+        except InvalidRequestError as e:
+            #if there are issues with query, raise InvalidResquestError
+            raise e
