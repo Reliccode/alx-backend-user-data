@@ -29,7 +29,7 @@ def _generate_uuid() -> str:
     """Generates new UUID and returns its string representation"""
     # make random UUID
     random_uuid = uuid.uuid4()
-    return (random_uuid)
+    return str(random_uuid)
 
 
 class Auth:
