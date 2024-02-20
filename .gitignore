@@ -1822,3 +1822,4 @@
 0x01-Basic_authentication/.venv/pyvenv.cfg
 0x03-user_authentication_service/__pycache__/user.cpython-310.pyc
 0x03-user_authentication_service/__pycache__/db.cpython-310.pyc
+0x03-user_authentication_service/__pycache__/auth.cpython-310.pyc
