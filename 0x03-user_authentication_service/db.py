@@ -77,22 +77,22 @@ class DB:
         """
 
         try:
-            #find user by user_id
+            # find user by user_id
             user = self.find_user_by(id=user_id)
 
-            #looping thru keyword arguments
+            # looping thru keyword arguments
             for key, value in kwargs.items():
-                #check if attribute exists in User model
+                # check if attribute exists in User model
                 if hasattr(User, key):
-                    #update users attribute
+                    # update users attribute
                     setattr(user, key, value)
 
                 else:
-                    #If an invalud attr is passed, raise ValueError
+                    # If an invalud attr is passed, raise ValueError
                     raise ValueError(f"Invalid attribute: {key}")
 
-            #commit changes to db
+            # commit changes to db
                 self.__session.commit()
         except NoResultFound:
-            #if user not found raise NoResultFound
+            # if user not found raise NoResultFound
             raise
