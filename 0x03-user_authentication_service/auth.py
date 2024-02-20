@@ -7,6 +7,7 @@ Hash passwords
 import bcrypt
 from db import DB
 from sqlalchemy.orm.exc import NoResultFound
+import uuid
 from user import User
 # import hashlib
 
@@ -71,3 +72,7 @@ class Auth:
             return True
         else:
             return False
+
+    def _generate_uuid() -> str:
+        """Generates new UUID and returns its string representation"""
+        return str(uuid.uuid4())
