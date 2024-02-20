@@ -5,12 +5,13 @@ add_user method
 
 
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
+#from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
+from sqlalchemy.exc import IntegrityError
 from user import Base, User
 
-# Base = declarative_base()
+#Base = declarative_base()
 
 
 class DB:
@@ -36,21 +37,16 @@ class DB:
 
     def add_user(self, email: str, hashed_password: str) -> User:
         """Add a new user to the database
-
-        Args:
-            email (str): email of the user
-            hashed_password (str): hashed passwd of user
-
-        Returns:
-            User: The created user object
         """
         # create a new user object
         user = User(email=email, hashed_password=hashed_password)
 
         # Add user to the session
         self._session.add(user)
-
-        # commit session to save changes to db
-        self.__session.commit()
-
+        # commit session to save changes to db but lets catch err
+        try:
+            self._session.commit()
+        except IntegrityError as err:
+            self._session.rollback()
+            raise ValueError("User already exists") from err
         return user
