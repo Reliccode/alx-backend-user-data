@@ -128,9 +128,9 @@ def update_password():
         response = {"email": email, "message": "Password updated"}
         return jsonify(response), 200
 
-    except ValueError as e:
+    except ValueError as err:
         # Respond with 403 if token is invalid
-        return str(e), 403
+        return str(err), 403
 
 
 if __name__ == "__main__":
