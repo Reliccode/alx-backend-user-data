@@ -126,7 +126,7 @@ def update_password():
 
     try:
         # update passwd
-        auth.update_password(reset_token, new_password)
+        auth.update_password(reset_token, password)
 
     except ValueError:
         abort(403)
