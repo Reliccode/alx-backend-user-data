@@ -118,21 +118,20 @@ def update_password():
 
     try:
         # parse form data
-        email = request.form.get['email']
-        reset_token = request.form.get['reset_token']
-        new_password = request.form.get['new_password']
+        email = request.form['email']
+        reset_token = request.form['reset_token']
+        new_password = request.form['new_password']
     except KeyError:
         abort(400)
 
     try:
         # update passwd
-        auth.update_password(reset_token, password)
+        auth.update_password(reset_token, new_password)
+        # if successful return 200 and success message
+        return jsonify({"email": email, "message": "Password updated"}), 200
 
     except ValueError:
         abort(403)
-
-        # if successful return 200 and success message
-    return jsonify({"email": email, "message": "Password updated"}), 200
 
 
 if __name__ == "__main__":
