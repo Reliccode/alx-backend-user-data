@@ -120,7 +120,7 @@ def update_password():
         # parse form data
         email = request.form['email']
         reset_token = request.form['reset_token']
-        password = request.form['new_password']
+        password = request.form['password']
     except KeyError:
         abort(400)
 
