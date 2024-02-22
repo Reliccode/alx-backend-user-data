@@ -122,7 +122,7 @@ def update_password():
 
     try:
         # update passwd
-        auth.update_password(reset_token, new_password)
+        auth.update_password(reset_token, password)
 
         # if successful return 200 and success message
         return jsonify({"email": email, "message": "Password updated"}), 200
