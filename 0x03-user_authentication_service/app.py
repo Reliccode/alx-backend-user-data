@@ -115,15 +115,16 @@ def get_reset_password_token():
 
 @app.route('/reset_password', methods=['PUT'])
 def update_password() -> str:
+    """Handle a PUT request to update user password"""
 
     email = request.form.get('email')
     reset_token = request.form.get('reset_token')
-    _hash_password = request.form.get('new_password')
+    new_password = request.form.get('new_password')
 
     try:
         # calling Auth.update_password method
         auth = Auth()
-        auth.update_password(reset_token, _hash_password)
+        auth.update_password(reset_token, new_password)
     except ValueError:
         # 403 if token invalid
         abort(403)
