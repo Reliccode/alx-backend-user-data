@@ -123,7 +123,6 @@ def update_password() -> str:
 
     try:
         # calling Auth.update_password method
-        auth = Auth()
         auth.update_password(reset_token, new_password)
     except ValueError:
         # 403 if token invalid
