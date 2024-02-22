@@ -122,7 +122,7 @@ def update_password():
         new_password = request.form.get('new_password')
 
         # Call Auth.update_password method
-        auth.update_password(reset_token, new_password)
+        Auth.update_password(reset_token, new_password)
 
         # Respond with success message
         response = {"email": email, "message": "Password updated"}
