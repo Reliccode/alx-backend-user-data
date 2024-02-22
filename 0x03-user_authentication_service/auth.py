@@ -112,3 +112,18 @@ class Auth:
         """Destroys user session"""
 
         self._db.update_user(user_id=user_id, session_id=None)
+
+    def get_reset_password_token(self, email: str) -> str:
+        # find user by email
+        user = self._db.find_user_by(email=email)
+
+        if not user:
+            # if user does not exists, raise ValueError
+            raise ValueError(f"User with email {email} does not exist")
+
+        # generate UUID for reset passwd token
+        reset_token = str(uuid.uuid4())
+
+        # update users reset token db field with generated token
+        user.reset_token = reset_token
+        self._db.commit_changes()
