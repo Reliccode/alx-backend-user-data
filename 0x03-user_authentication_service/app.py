@@ -78,5 +78,22 @@ def logout():
         return "Forbidden", 403
 
 
+@app.route("/profile", methods=['GET'])
+def profile():
+    # get session_id from cookie
+    session_id = request.cookies.get('session_id')
+
+    # find user matching the session id
+    user = AUTH.get_user_from_session_id(session_id)
+
+    if user:
+        # respond with 200 status & return users email
+        return jsonify({"email": user.email}), 200
+    else:
+        # respond with 403 status if session id invalid
+        # respond with 403 status if user does not exist
+        return "Forbidden", 403
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
