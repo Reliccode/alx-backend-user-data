@@ -118,7 +118,7 @@ def update_password():
     # parse form data
     email = request.form.get('email')
     reset_token = request.form.get('reset_token')
-    password = request.form.get('new_password')
+    password = request.form.get('password')
 
     try:
         # update passwd
