@@ -4,6 +4,7 @@ Flask app
 """
 
 from flask import Flask, jsonify, request, make_response, abort
+from flask import redirect
 from auth import Auth
 
 
@@ -58,6 +59,23 @@ def login():
     else:
         # if login info is incorrect, return 401 unauthorized
         abort(401)
+
+
+@app.route("/sessions", methods=['DELETE'])
+def logout():
+    # Get session id from cookie
+    session_id = request.cookies.get('session_id')
+
+    # find user corresponding to session id
+    user = AUTH.get_user_from_session_id(session_id)
+    if user:
+        # destroy the session
+        AUTH.destroy_session(user.id)
+        # redirect user to GET /
+        return redirect("/", code=302)
+    else:
+        # Respond with 403 status if user not exists
+        return "Forbidden", 403
 
 
 if __name__ == "__main__":
