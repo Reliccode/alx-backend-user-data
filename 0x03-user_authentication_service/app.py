@@ -15,14 +15,17 @@ auth = Auth()
 
 
 @app.route("/", methods=['GET'])
-def api():
+def api() -> dict:
+    """Return a welcome message"""
     message = {"message": "Bienvenue"}
 
     return jsonify(message)
 
 
 @app.route("/users", methods=["POST"])
-def users():
+def users() -> dict:
+    """Register a new user."""
+
     # extract email and password from form data
     email = request.form.get("email")
     password = request.form.get("password")
@@ -40,7 +43,8 @@ def users():
 
 
 @app.route("/sessions", methods=['POST'])
-def login():
+def login() -> tuple:
+    """Log in a user."""
     # get email and passwd from form data
     email = request.form.get('email')
     password = request.form.get('password')
@@ -62,7 +66,8 @@ def login():
 
 
 @app.route("/sessions", methods=['DELETE'])
-def logout():
+def logout() -> str:
+    """Log out a user."""
     # Get session id from cookie
     session_id = request.cookies.get('session_id')
 
@@ -79,7 +84,8 @@ def logout():
 
 
 @app.route("/profile", methods=['GET'])
-def profile():
+def profile() -> tuple:
+    """Return user profile information."""
     # get session_id from cookie
     session_id = request.cookies.get('session_id')
 
@@ -96,7 +102,8 @@ def profile():
 
 
 @app.route("/reset_password", methods=['POST'])
-def get_reset_password_token():
+def get_reset_password_token() -> tuple:
+    """Generate reset password toekn for user"""
     # get email from form data
     email = request.form.get('email')
 
@@ -115,7 +122,7 @@ def get_reset_password_token():
 
 @app.route('/reset_password', methods=['PUT'])
 def update_password() -> str:
-    """Handle a PUT request to update user password"""
+    """update user password using reset token"""
 
     email = request.form.get('email')
     reset_token = request.form.get('reset_token')
