@@ -118,12 +118,12 @@ def update_password() -> str:
 
     email = request.form.get('email')
     reset_token = request.form.get('reset_token')
-    new_password = request.form.get('new_password')
+    password = request.form.get('new_password')
 
     try:
         # calling Auth.update_password method
         auth = Auth()
-        auth.update_password(reset_token, new_password)
+        auth.update_password(reset_token, password)
     except ValueError:
         # 403 if token invalid
         abort(403)
