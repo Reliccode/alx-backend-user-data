@@ -129,7 +129,7 @@ def update_password():
         return jsonify(response), 200
 
     except ValueError:
-        #403 if token invalid
+        # 403 if token invalid
         abort(403)
 
 
