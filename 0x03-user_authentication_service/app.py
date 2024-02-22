@@ -115,13 +115,12 @@ def get_reset_password_token():
 
 @app.route("/reset_password", methods=['PUT'])
 def update_password():
+    # parse form data
+    email = request.form['email']
+    reset_token = request.form['reset_token']
+    new_password = request.form['new_password']
 
-    try:
-        # parse form data
-        email = request.form['email']
-        reset_token = request.form['reset_token']
-        password = request.form['password']
-    except KeyError:
+    if email is None or reset_token is None or new_password is None:
         abort(400)
 
     try:
