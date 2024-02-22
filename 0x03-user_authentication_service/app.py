@@ -114,7 +114,7 @@ def get_reset_password_token():
 
 
 @app.route('/reset_password', methods=['PUT'])
-def update_password():
+def update_password() -> str:
     try:
         # get form data
         email = request.form.get('email')
